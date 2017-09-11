@@ -60,7 +60,6 @@ function generateTree(nodeArr){
 			//第一个元素，父节点是body
 			if(i==0){
 				createNode(body, nodeArr[i].node);
-				jugementCreate(nodeArr[i]);
 				if(nodeArr[i].left || nodeArr[i].left == 0){   //有左节点
 					var parTagClass = 'd' + nodeArr[i].node;
 					var parDom = document.getElementsByClassName(parTagClass)[0];
@@ -71,7 +70,7 @@ function generateTree(nodeArr){
 						createNode(parDom, nodeArr[i].left);
 					}
 				}else{  //是叶子节点
-				continue;
+					continue;
 				}
 			}else{  //不是第一个元素，其父节点根据树的情况决定
 				if(nodeArr[i].left || nodeArr[i].left == 0){   //有左节点
