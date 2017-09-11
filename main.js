@@ -60,31 +60,32 @@ function generateTree(nodeArr){
 			//第一个元素，父节点是body
 			if(i==0){
 				createNode(body, nodeArr[i].node);
+				jugementCreate(nodeArr[i]);
 				if(nodeArr[i].left || nodeArr[i].left == 0){   //有左节点
 					var parTagClass = 'd' + nodeArr[i].node;
 					var parDom = document.getElementsByClassName(parTagClass)[0];
-				if(nodeArr[i].right || nodeArr[i].right == 0){  //有右节点
-					createNode(parDom, nodeArr[i].left);
-					createNode(parDom, nodeArr[i].right);
-				}else{
-					createNode(parDom, nodeArr[i].left);
-				}
-			}else{  //是叶子节点
+					if(nodeArr[i].right || nodeArr[i].right == 0){  //有右节点
+						createNode(parDom, nodeArr[i].left);
+						createNode(parDom, nodeArr[i].right);
+					}else{
+						createNode(parDom, nodeArr[i].left);
+					}
+				}else{  //是叶子节点
 				continue;
-			}
+				}
 			}else{  //不是第一个元素，其父节点根据树的情况决定
 				if(nodeArr[i].left || nodeArr[i].left == 0){   //有左节点
 					var parTagClass = 'd' + nodeArr[i].node;
 					var parDom = document.getElementsByClassName(parTagClass)[0];
-				if(nodeArr[i].right || nodeArr[i].right == 0){  //有右节点
-					createNode(parDom, nodeArr[i].left);
-					createNode(parDom, nodeArr[i].right);
-				}else{
-					createNode(parDom, nodeArr[i].left);
+					if(nodeArr[i].right || nodeArr[i].right == 0){  //有右节点
+						createNode(parDom, nodeArr[i].left);
+						createNode(parDom, nodeArr[i].right);
+					}else{
+						createNode(parDom, nodeArr[i].left);
+					}
+				}else{  //是叶子节点
+					continue;
 				}
-			}else{  //是叶子节点
-				continue;
-			}
 			}
 		}
 	}
