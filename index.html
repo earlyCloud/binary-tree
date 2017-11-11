@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>binary tree</title>
+<style>
+div, span{
+	margin: 0;
+	padding: 0;
+}
+html{
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.interaction{
+	margin-bottom: 10px;
+	padding: 10px 0;
+	border-bottom: 1px solid #ccc;
+	font-weight: normal;
+	text-align: center;
+}
+.interaction > input[type=text]{
+	min-width: 30%;
+}
+.interaction > input[type=button]{
+	cursor: pointer;
+}
+
+#result{
+	min-height: 22px;
+	margin-bottom: 10px;
+}
+.result{
+	text-align: center;
+}
+.warning{
+	text-align: center;
+	color: red;
+}
+
+div.tree {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+div.depth{
+	display: none;
+}
+div.tree > span {
+  width: 100%;
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+}
+.tree > .tree {
+  width: 50%;
+}
+</style>
+</head>
+<body>
+	<div class="interaction">
+		请输入一组数字： <input type="text" placeholder="以符号 , 分隔" id="userInput"><input type="button" id="conver" value="conver">
+		<p class="result" id="result"></p>	
+	</div>
+	<div id="showTheTree"></div>
+	<!-- <div class="tree">
+		<div class="depth">1</div>
+		<span>1</span> -->
+		<!-- <div class="tree">
+			<span>2</span>
+			<div class="tree">
+				<span>4</span>
+				<div class="tree">
+					<span>8</span>
+				</div>
+				<div class="tree">
+					<span>9</span>
+				</div>
+			</div>
+			<div class="tree">
+				<span>5</span>
+				<div class="tree">
+					<span>10</span>
+				</div>
+			</div>
+		</div>
+		<div class="tree">
+			<span>3</span>
+			<div class="tree">
+				<span>6</span>
+				<div class="tree">
+					<span>11</span>
+				</div>
+			</div>
+			<div class="tree">
+				<span>7</span>
+			</div>
+		</div> -->
+	<!-- </div> -->
+</body>
+<script src="./main.js"></script>
+</html>

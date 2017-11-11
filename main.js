@@ -1,6 +1,6 @@
 /*将一个排序好的整数数组转换为一棵高度最小的二叉树*/
 
-var arr = [0, 1, 5, 7, 8, 9, 11, 25, 26, 44, 55, 66, 99, 100];
+var arr = [];
 
 var sortedArrToBST = {
 	nodeArr: [],  //存放树节点的数组
@@ -42,24 +42,80 @@ var sortedArrToBST = {
 	}
 
 };
+/**********************************************************/
+
+
+var userInput = document.getElementById("userInput"),
+	 converButton = document.getElementById("conver"),
+	 result = document.getElementById("result"),
+	 showDOM = document.getElementById('showTheTree');
+
+userInput.addEventListener('keyup', function(e){
+	if(e.keyCode == 13){
+		converButton.click();	
+	}
+});
+converButton.addEventListener('click', function(e){
+	e.preventDefault();
+	e.stopPropagation();
+	//重置生成树
+	showDOM.innerHTML = '';
+	//重置生成树数组
+	sortedArrToBST.nodeArr = [];
+	var resultText = '';
+	//获取用户输入
+	var input = userInput.value;
+	//检测是否含有字母或者一些字符
+	var check = /[a-zA-Z^%&/'":;=?$]+/g;
+	if(input.search(check) != -1){
+		resultText = "请输入纯数字";
+		showResult(result, resultText);
+		return;
+	};
+	//分割，去除空格
+	var inputArr = input.split(',');
+	//去除用户输入左右两边空格
+	inputArr.forEach(function(item, index){
+		item.trim();
+	});
+	//去重
+	inputArr = unique(inputArr);
+	//排序
+	inputArr.sort(function(v1, v2){
+		if(Number(v1) < Number(v2)){
+			return -1
+		}else if(Number(v1) > Number(v2)){
+			return 1
+		}else{
+			return 0
+		}
+	});
+	sortedArrToBST.toBST(inputArr);
+	//获取转换后的树节点数组
+	var nodeArr = sortedArrToBST.nodeArr;
+	//在HTML中生成树
+	generateTree(nodeArr);
+
+	//显示结果数组
+	resultText = '[ ' + inputArr + ' ]';
+	showResult(result, resultText);
+	//重置输入框
+	userInput.value = '';
+});
 
 
 
-var body = document.getElementsByTagName('body')[0];
-sortedArrToBST.toBST(arr);
-//获取转换后的树节点数组
-var nodeArr = sortedArrToBST.nodeArr;
-//在HTML中生成树
-generateTree(nodeArr);
 
+
+/*********************************************************/
 function generateTree(nodeArr){
 	//遍历树对象数组
 	var len = nodeArr.length;
 	for(var i=0; i<len; i++){
 		if(!(nodeArr[i].node == undefined)){
-			//第一个元素，父节点是body
+			//第一个元素，父节点是showDOM
 			if(i==0){
-				createNode(body, nodeArr[i].node);
+				createNode(showDOM, nodeArr[i].node);
 				if(nodeArr[i].left || nodeArr[i].left == 0){   //有左节点
 					var parTagClass = 'd' + nodeArr[i].node;
 					var parDom = document.getElementsByClassName(parTagClass)[0];
@@ -106,6 +162,21 @@ function createNode(parent, nodeValue){
 	//将生成的树节点插入到父节点中
 	parent.appendChild(tree);
 }
+
+/*function jugementCreate(nodeObj){
+	if(nodeObj.left || nodeObj.left == 0){   //有左节点
+		var parTagClass = 'd' + nodeObj.node;
+		var parDom = document.getElementsByClassName(parTagClass)[0];
+		if(nodeObj.right || nodeObj.right == 0){  //有右节点
+			createNode(parDom, nodeObj.left);
+			createNode(parDom, nodeObj.right);
+		}else{
+			createNode(parDom, nodeObj.left);
+		}
+}*/
+function showResult(node, text){
+	node.innerText = text;
+}
 function isLeafNode(obj){
 	if(obj.left==undefined && obj.right==undefined){
 		return true;
@@ -113,17 +184,26 @@ function isLeafNode(obj){
 		return false;
 	}
 }
+
+//数组去重
+function unique(arr){
+	var i, o = {}, temArr = [], len = arr.length;
+	if(len){
+		for(i=len-1; i>=0; i--){
+			if(o[arr[i]]){
+				continue
+			}else{
+				temArr[temArr.length] = arr[i];
+				o[arr[i]] = 1;
+			}
+		}
+	}
+	return temArr;
+}
+
 //添加class
 function addClass(ele,className){
-     if(ele.className){
-		 var claArr = ele.className.split(' ');
-		 for(var i in claArr){   //如果元素中原来有这个class，那么就没必要再添加
-			 if (claArr[i]==className){
-				 return;
-			 }
-		 }	 
-	     ele.className += (' '+className);
-	 }else{
-	     ele.className = className;
-	 }
+     if(ele.className.indexOf(className) == -1)
+	     ele.className += (' ' + className);
+		return 
 }
