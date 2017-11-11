@@ -72,12 +72,9 @@ converButton.addEventListener('click', function(e){
 		showResult(result, resultText);
 		return;
 	};
-	//分割，去除空格
+	//去除空格,分割
+	input = input.replace(/\s/g, "");
 	var inputArr = input.split(',');
-	//去除用户输入左右两边空格
-	inputArr.forEach(function(item, index){
-		item.trim();
-	});
 	//去重
 	inputArr = unique(inputArr);
 	//排序
